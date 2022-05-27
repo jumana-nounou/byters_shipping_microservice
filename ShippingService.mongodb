@@ -1,0 +1,55 @@
+
+use('ShippingService');
+
+
+
+
+//to insert something
+db.shippingInfo.insertOne({
+  "_id":"21",
+ //  "orderno":"_id"  ,
+    "status":"returned" ,
+    "clientname" :"go",
+    "address": {
+        "building":"77",
+        "street":"7",
+        "city":"madinaty",
+        "district":"cairo"
+    }
+})
+
+
+
+//to find something
+db.shippingInfo.find({ "clientname":"go"})
+//to find something with get operator 
+db.shippingInfo.find({ "address.district":"cairo"}
+)
+// to update something
+db.shippingInfo.updateOne(
+    {
+   "clientname":"go"
+    },{
+
+    
+    "$set":{
+        "status":"delivered"
+    }
+    }
+)
+
+
+
+//to update hagat kteer 
+/*
+db.shippingInfo.updateMany(
+    {
+
+    }
+)
+
+*/
+
+
+
+

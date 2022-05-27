@@ -2,8 +2,8 @@ require('dotenv').config();
 const express = require('express');
 const axios = require('axios');
 const { mongoClient } = require('./mongo');
-
 const app = express();
+
 
 app.get('/', async (req,res) => {
   const db = await mongoClient();

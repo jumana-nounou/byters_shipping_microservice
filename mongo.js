@@ -24,8 +24,36 @@ const mongoClient = async () => {
   return dbConnection;
 };
 
+
+MongoClient.connect(MONGO_URI, { useNewUrlParser: true }, (err, client) => {
+
+  if (err) throw err;
+
+  const db = client.db("ShippingService");
+
+  let collection = db.collection('shippingInfo');
+  let query = { status: "delivered" }
+
+  collection.findOne(query).then(doc => {
+
+      console.log(doc);
+
+  }).catch((err) => {
+
+      console.log(err);
+  }).finally(() => {
+
+      client.close();
+  });
+});
+
+
+
 module.exports = {
   mongoClient,
   ObjectID
 };
+
+
+
 
