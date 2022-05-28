@@ -6,14 +6,13 @@ use('ShippingService');
 
 //to insert something
 db.shippingInfo.insertOne({
-  "_id":"21",
- //  "orderno":"_id"  ,
-    "status":"returned" ,
-    "clientname" :"go",
-    "address": {
-        "building":"77",
-        "street":"7",
-        "city":"madinaty",
+   "_id":"67",
+    "status":"RETURNED" ,
+    "ClientName" :"Nash",
+    "Address": {
+        "building":"3",
+        "street":"99",
+        "city":"maadi",
         "district":"cairo"
     }
 })

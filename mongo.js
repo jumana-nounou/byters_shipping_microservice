@@ -25,27 +25,27 @@ const mongoClient = async () => {
 };
 
 
-MongoClient.connect(MONGO_URI, { useNewUrlParser: true }, (err, client) => {
+// MongoClient.connect(MONGO_URI, { useNewUrlParser: true }, (err, client) => {
 
-  if (err) throw err;
+//   if (err) throw err;
 
-  const db = client.db("ShippingService");
+//   const db = client.db("ShippingService");
 
-  let collection = db.collection('shippingInfo');
-  let query = { status: "delivered" }
+//   let collection = db.collection('shippingInfo');
+//   let query = { status: "delivered" }
 
-  collection.findOne(query).then(doc => {
+//   collection.findOne(query).then(doc => {
 
-      console.log(doc);
+//       console.log(doc);
 
-  }).catch((err) => {
+//   }).catch((err) => {
 
-      console.log(err);
-  }).finally(() => {
+//       console.log(err);
+//   }).finally(() => {
 
-      client.close();
-  });
-});
+//       client.close();
+//   });
+// });
 
 
 
