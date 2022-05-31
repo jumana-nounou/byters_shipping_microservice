@@ -5,8 +5,8 @@ use('ShippingService');
 
 
 //to insert something
-db.shippingInfo.insertOne({
-   "_id":"67",
+db.shipment.insertOne({
+   "OrderID":"67",
     "status":"RETURNED" ,
     "ClientName" :"Nash",
     "Address": {
@@ -30,7 +30,6 @@ db.shippingInfo.updateOne(
    "clientname":"go"
     },{
 
-    
     "$set":{
         "status":"delivered"
     }
