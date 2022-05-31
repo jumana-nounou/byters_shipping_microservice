@@ -30,7 +30,18 @@ const ObjectId = require("mongodb").ObjectId;
 //     .collection("shippingInfo")
 //     .findOne(myquery, function (err, result) {
 //       if (err) throw err;
-      
+// app.get('/shipments/:orderId', async (req, res) => {
+//   if (!db) res.status(500).send("No db connection");
+ 
+//   const { orderId } = req.params;
+//   const results = await db.collection('shipments').findOne({ orderId });
+//   return res.status(200).send(results);
+// });
+
+
+
+
+
 //     });
 
 
@@ -39,14 +50,14 @@ const ObjectId = require("mongodb").ObjectId;
  
   const db = await mongoClient();
   if (!db) res.status(500).send("No db connection");
- 
-  const orderId  = { _id: ObjectId( req.params.id )};
+  const { orderId } = req.params;
+  //const orderId  = { _id: ObjectId( req.params.oid )};
  const results = await db.collection('shipments').findOne({orderId}) ;
    
   return res.status(200).json(results);
 });
 
- 
+ //62968653276f02397ac4c61b
 app.post('/shipments', async (req, res) => {
   const db = await mongoClient();
   if (!db) res.status(500).send("No db connection");
@@ -65,7 +76,7 @@ app.patch('/shipments/:orderId', async (req, res) => {
   if (!db) res.status(500).send("No db connection");
  
   const { orderId } = req.params;
-  const result = await db.collection('shippingInfo').findOne({ orderId });
+  const result = await db.collection('shipments').findOne({ orderId });
  
   // CREATED | SHIPPED | DELIVERED
  
@@ -74,7 +85,7 @@ app.patch('/shipments/:orderId', async (req, res) => {
     SHIPPED: 'DELIVERED',
   }[result.status];
  
-  const results = await db.collection('shippingInfo').updateOne({ orderId }, { status: updateShipmentStatus });
+  const results = await db.collection('shipments').updateOne({ orderId }, { status: updateShipmentStatus });
   return res.status(200).send(results);
 });
 
