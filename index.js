@@ -9,7 +9,7 @@
 const BodyParser = require("body-parser");
 app.use(BodyParser.json());
 app.use(BodyParser.urlencoded({ extended: true }));
-const ObjectId = require("mongodb").ObjectId;
+const ordId = require("mongodb").ObjectId;
 
 
 
@@ -50,12 +50,16 @@ const ObjectId = require("mongodb").ObjectId;
  
   const db = await mongoClient();
   if (!db) res.status(500).send("No db connection");
-  const { orderId } = req.params;
+  const {orderId}=req.params.mongoClient.ordId;
+  //ordId=req.params
+  //const { orderId } = req.params;
   //const orderId  = { _id: ObjectId( req.params.oid )};
  const results = await db.collection('shipments').findOne({orderId}) ;
    
   return res.status(200).json(results);
 });
+
+
 
  //62968653276f02397ac4c61b
 app.post('/shipments', async (req, res) => {

@@ -4,50 +4,44 @@ use('ShippingService');
 
 
 
-//to insert something
-db.shipment.insertOne({
-   "OrderID":"67",
-    "status":"RETURNED" ,
-    "ClientName" :"Nash",
-    "Address": {
-        "building":"3",
-        "street":"99",
-        "city":"maadi",
-        "district":"cairo"
-    }
-})
+// db.createCollection( "shipments",
+//    { validator: { $or:
+//       [  { orderNo:{ $type: "int"}},
+//          { status: { $in: [ "CREATED", "SHIPPED","DELIVERED","RETURNED" ] } }
+//       ]
+//    }
+// // } )
+// {
+//   $jsonSchema: {
+//      required: [ "name", "major", "gpa", "address" ],
+//      properties: {
+//         name: {
+//            bsonType: "string",
+//            description: "must be a string and is required"
+//         },
+//         address: {
+//            bsonType: "object",
+//            required: [ "zipcode" ],
+//            properties: {
+//                "street": { bsonType: "string" },
+//                "zipcode": { bsonType: "string" }
+//            }
+//         }
+//      }
+//   }
+// }
 
 
-
-//to find something
-db.shippingInfo.find({ "clientname":"go"})
-//to find something with get operator 
-db.shippingInfo.find({ "address.district":"cairo"}
-)
-// to update something
-db.shippingInfo.updateOne(
-    {
-   "clientname":"go"
-    },{
-
-    "$set":{
-        "status":"delivered"
-    }
-    }
-)
+// db.shipments.insertOne({
+//     orderNo :3,
+//     status:"CREATED" 
+// })
 
 
+// >
 
-//to update hagat kteer 
-/*
-db.shippingInfo.updateMany(
-    {
-
-    }
-)
-
-*/
-
-
-
-
+// //to find somethingObjectId("5e07158c25ddae1f53b621fd")
+ db.shipments.find({"orderNo":2})
+// //to find something with get operator 
+// db.shippingInfo.find({ "address.district":"cairo"}
+// )

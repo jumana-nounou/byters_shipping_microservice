@@ -45,20 +45,20 @@ router.route("/showStatus/:orderId").get(function (req, res) {
 //   return res.status(200).send(results);
 // });
 
-router.route("/showStatus/addNewShippment").post(function (req, response) {
-  if (!db) res.status(500).send("No db connection");
+// router.route("/showStatus/addNewShippment").post(function (req, response) {
+//   if (!db) res.status(500).send("No db connection");
 
-  let db_connect = dbo.getDb("ShippingService");
-   const { orderId } = req.body; 
-   const newShipment = {
-      orderId,
-      status: 'CREATED'
-     };
-  db_connect.collection("shippingInfo").insertOne(newShipment, function (err, res) {
-    if (err) throw err;
-    response.json(res);
-  });
- });
+//   let db_connect = dbo.getDb("ShippingService");
+//    const { orderId } = req.body; 
+//    const newShipment = {
+    
+//       status: 'CREATED'
+//      };
+//   db_connect.collection("shippingInfo").insertOne(newShipment, function (err, res) {
+//     if (err) throw err;
+//     response.json(res);
+//   });
+//  });
 
  //update el status
 
