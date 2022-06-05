@@ -32,16 +32,16 @@ use('ShippingService');
 // }
 
 
-// db.shipments.insertOne({
-//     orderNo :3,
-//     status:"CREATED" 
-// })
+db.shipments.insertOne({
+    orderNo :3,
+    status:"CREATED" 
+})
 
 
 // >
 
 // //to find somethingObjectId("5e07158c25ddae1f53b621fd")
- db.shipments.find({"orderNo":2})
+ //db.shipments.find({"orderNo":2})
 // //to find something with get operator 
 // db.shippingInfo.find({ "address.district":"cairo"}
 // )
