@@ -16,15 +16,15 @@ const ordId = require("mongodb").ObjectId;
 
 
  
- app.get('/', async (req,res) => {
-   const db = await mongoClient();
-   if (!db) res.status(500).send('Systems Unavailable');
+//  app.get('/', async (req,res) => {
+//    const db = await mongoClient();
+//    if (!db) res.status(500).send('Systems Unavailable');
  
-   const { data } = await axios.get('https://goweather.herokuapp.com/weather/california');
-   await db.collection('weather').insertOne(data);
+//    const { data } = await axios.get('https://goweather.herokuapp.com/weather/california');
+//    await db.collection('weather').insertOne(data);
  
-   return res.send(data);
- });
+//    return res.send(data);
+//  });
 
 
 
@@ -79,34 +79,20 @@ app.patch('/shipments/:orderId', async (req, res) => {
 });
 
 
-app.delete('/shipments/:orderId', async (req, res) => {
-  const db = await mongoClient();
-  if (!db) res.status(500).send("No db connection");
- 
-  //const { orderId } = req.body;
-  const Shipment = {
-    orderNo:o,
-    status: 'CREATED'
-  };
- const results=await db.collection('shipments').deleteOne( Shipment );
- 
-  return res.status(200).send(results);
 
-});
 
-// law hya cancelled yb2a ana ha return wa law ana khalas ba2et delivered ha3melha returned bardo
-
-app.patch('/shipments/:orderId/Accept', async (req, res) => {
+app.patch('/shipments/cancel/:orderId/', async (req, res) => {
   const db = await mongoClient();
   if (!db) res.status(500).send("No db connection");
  
  var x= Number(req.params.orderId)
  console.log(x);
  const result = await db.collection('shipments').findOne({"orderNo":x}) ;
-
+  if(result.status=='CREATED');
   const updateShipmentStatus = {
-    DELIVERED: 'RETURNED'
+    CREATED: 'CANCELED'
   } [result.status];
+
   const results = await db.collection('shipments').updateOne({ "orderNo":x }, { $set: { "status" : updateShipmentStatus } });
   return res.status(200).send(results);
 });
@@ -114,6 +100,8 @@ app.patch('/shipments/:orderId/Accept', async (req, res) => {
 app.listen(port, () => {
   console.log(`Server is running on port: ${port}`);
 });
+// to cancel shipment
+
 
 //const shipmentRoutes=require('./routes/shippment.js');
 //app.use('/shipments',shipmentRoutes);
