@@ -9,7 +9,6 @@ const express = require('express');
 const BodyParser = require("body-parser");
 app.use(BodyParser.json());
 app.use(BodyParser.urlencoded({ extended: true }));
-const ordId = require("mongodb").ObjectId;
 
 
 
@@ -28,10 +27,9 @@ const ordId = require("mongodb").ObjectId;
 
 
 
- var o=4;
+ 
 
  app.get('/shipments/:orderId', async (req, res) => {
- 
   const db = await mongoClient();
   if (!db) res.status(500).send("No db connection");
   //const {orderId}=req.params.mongoClient.ordId;
@@ -41,7 +39,6 @@ const ordId = require("mongodb").ObjectId;
  const results = await db.collection('shipments').findOne({"orderNo":i}) ;
   console.log(i)
   console.log(results)
-  //console.log(ordId)
   return res.status(200).send(results);
 });
 
@@ -51,13 +48,14 @@ app.post('/shipments', async (req, res) => {
   const db = await mongoClient();
   if (!db) res.status(500).send("No db connection");
  
+  const { orderNo } = req.body;
+    if (!orderNo) return res.status(403).send('orderNo is required');
+
+    const shipment = await db.collection('shipments').findOne({ orderNo });
+    if (shipment) return res.status(403).send('Document already exists, cannot create');
   //const { orderId } = req.body;
-  const newShipment = {
-    orderNo:o,
-    status: 'CREATED'
-  };
-  o=o+1;
-  const results = await db.collection('shipments').insertOne(newShipment);
+  const newShipmentStat = 'CREATED';
+  const results = await db.collection('shipments').insertOne(orderNo,newShipmentStat);
   return res.status(200).send(results);
 });
 
