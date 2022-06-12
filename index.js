@@ -3,6 +3,8 @@ const express = require('express');
  const cors = require("cors");
  const port = 3000;
  const app = express();
+ //const { uuid } = require('uuidv4');
+
  app.use(cors({
   origin:'*'
  }));
@@ -50,19 +52,24 @@ app.all('*', function(req, res, next) {
 });
 
 
-
+var o=4;
 app.post('/shipments', async (req, res) => {
   const db = await mongoClient();
   if (!db) res.status(500).send("No db connection");
  
-  const { orderNo } = req.body;
-    if (!orderNo) return res.status(403).send('orderNo is required');
+  // const { orderNo } = req.body;
+  //   if (!orderNo) return res.status(403).send('orderNo is required');
 
-    const shipment = await db.collection('shipments').findOne({ orderNo });
-    if (shipment) return res.status(403).send('Document already exists, cannot create');
+  //   const shipment = await db.collection('shipments').findOne({ orderNo });
+  //   if (shipment) return res.status(403).send('Document already exists, cannot create');
   //const { orderId } = req.body;
-  const newShipmentStat = 'CREATED';
-  const results = await db.collection('shipments').insertOne(orderNo,newShipmentStat);
+  const newShipment = {
+    //orderId:uuid(),
+    orderNo:o,
+    status: 'CREATED'
+  };
+  o=o+1
+  const results = await db.collection('shipments').insertOne(newShipment);
   return res.status(200).send(results);
 });
 
