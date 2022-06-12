@@ -3,7 +3,9 @@ const express = require('express');
  const cors = require("cors");
  const port = 3000;
  const app = express();
- app.use(cors());
+ app.use(cors({
+  origin:'*'
+ }));
  app.use(express.json());
  const { mongoClient } = require('./mongo.js');
 const BodyParser = require("body-parser");
